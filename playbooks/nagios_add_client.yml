@@ -1,0 +1,18 @@
+---
+- name: Add config file to a server
+  become: yes
+  hosts: 192.168.1.221
+  roles:
+    - roles/burhan.nagios-server
+
+- name: Add config file to a server
+  become: yes
+  hosts: 192.168.1.221
+  roles:
+    - roles/burhan.nagios_add_servers    
+
+- name: Configure nagios client
+  hosts: 192.168.1.220
+  become: yes
+  roles: 
+    - roles/burhan.nagios-client
