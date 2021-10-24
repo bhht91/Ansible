@@ -1,0 +1,49 @@
+# DisableRoot, Selinux, Firewalls, Packages
+
+---
+- name: "Disable root login"
+  lineinfile: 
+        dest=/etc/ssh/sshd_config
+        regexp='^PermitRootLogin'
+        line="PermitRootLogin no"
+        state=present
+        backup=yes
+
+- name: Restart sshd
+  service: 
+   name: sshd
+   state: restarted
+
+- name: selinux off
+  shell: setenforce 0
+- name: selinux off
+  shell: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+
+- name: firewall off
+  service: 
+    name: firewalld 
+      - iptables
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+
+- name: Extra Packages
+  yum: 
+    name:
+      - bind-utils
+      - epel-release
+      - nfs-utils
+      - chrony
+      - man
+      - man-pages
+      - wget
+      - openldap-clients
+      - nss-pam-ldap
+      - authconfig
+      - mlocate
+      - sysstat
+      - net-tools
+    state: present
+
+- name: Yum clean
+  shell: yum clean
