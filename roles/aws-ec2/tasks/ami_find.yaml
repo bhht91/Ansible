@@ -1,0 +1,48 @@
+---
+
+- set_fact:
+    os_image_name: "{{ redhat7_image_type }}"
+  when: os == "redhat7"
+
+- set_fact:
+    os_image_name: "{{ redhat8_image_type }}"
+  when: os == "redhat8"
+
+- set_fact:
+    os_image_name: "{{ redhat9_image_type }}"
+  when: os == "redhat9"
+
+- set_fact:
+    os_image_name: "{{ suse15_image_type }}"
+  when: os == "suse15"
+
+- set_fact:
+    os_image_name: "{{ ubuntu22_image_type }}"
+  when: os == "ubuntu22"
+
+- set_fact:
+    os_image_name: "{{ amazon_image_type }}"
+  when: os == "amazon"
+
+- set_fact:
+    os_image_name: "{{ windows2022_image_type }}"
+  when: os == "windows2022"
+
+- name: gather information about an AMI 
+  amazon.aws.ec2_ami_info:
+    region: "{{ region }}"
+    filters:
+      name: "{{ os_image_name}} "
+  register: ami_info
+
+- name: Print return AMI information from the previous task
+  ansible.builtin.debug:
+    var: ami_info
+
+- set_fact:
+    image_ami_info: "{{ ami_info.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}"
+
+- name: Print AMI Parsing
+  ansible.builtin.debug:
+    var: image_ami_info
+

@@ -1,0 +1,13 @@
+---
+
+# AMI ID Variables
+redhat7_image_type: "RHEL-7.*_HVM-*-x86_64-*Hourly*"
+redhat8_image_type: "RHEL-8.*_HVM-*-x86_64-*Hourly*"
+redhat9_image_type: "RHEL-9.*_HVM-*-x86_64-*Hourly*"
+suse15_image_type: "suse-sles-15-sp4-sapcal-v*-hvm-ssd-x86_64"
+ubuntu22_image_type: "ubuntu/images/hvm-ssd/ubuntu-*-22*-amd64-server-*"
+amazon_image_type: "amzn2-ami-kernel-*10-hvm-*-x86_64-gp2"
+windows2022_image_type: "Windows_Server-2022-English-Full-Base-*"
+
+# Region
+region: "us-east-1"
