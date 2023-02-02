@@ -11,3 +11,14 @@ windows2022_image_type: "Windows_Server-2022-English-Full-Base-*"
 
 # Region
 region: "us-east-1"
+
+ec2key: "mykey"
+
+instance_type: "t2.micro"
+
+vpc_subnet_id: "subnet-12345"
+
+tag_name: "appserver"
+
+security_group_id: 
+

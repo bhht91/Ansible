@@ -1,15 +1,21 @@
 ---
+
 - name: Create Ec2 instances
   hosts: localhost
   gather_facts: false
   tasks:
 
-# Block is a Group of Tasks combined together
-- name: Get Info Block
-  block: 
-    - name: Get Running instance Info
-      
-      ec2_instance_info:
-      register: ec2info 
-    - name: Print info
-      debug: var="ec2info.instances"
+  - include: ami_find.yaml
+
+  - name: provision ec2 on aws
+    ec2:
+      key_name: "{{ ec2key }}"
+      instance_type: "{{ instance_type }}"
+      image: "{{ image_ami_info }}"
+      wait: yes
+      vpc_subnet_id: "{{ vpc_subnet_id }}"
+      instance_tags:
+        Name: "{{ tag_name }}"
+      assign_public_ip: yes
+      region: "{{ region }}"
+      group_id: "{{ security_group_id }}"
