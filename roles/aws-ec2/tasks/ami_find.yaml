@@ -28,11 +28,11 @@
     os_image_name: "{{ windows2022_image_type }}"
   when: os == "windows2022"
 
-- name: gather information about an AMI 
+- name: Gather Information About an AMI
   amazon.aws.ec2_ami_info:
     region: "{{ region }}"
     filters:
-      name: "{{ os_image_name}} "
+      name: "{{ os_image_name}}"
   register: ami_info
 
 - name: Print return AMI information from the previous task
@@ -45,4 +45,3 @@
 - name: Print AMI Parsing
   ansible.builtin.debug:
     var: image_ami_info
-
